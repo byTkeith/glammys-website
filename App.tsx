@@ -6,7 +6,7 @@ import { BookingModal } from './components/BookingModal';
 import { Chatbot } from './components/Chatbot';
 import { ROOMS, FAQS, TEAM, GALLERY_IMAGES, COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_PHONE, THINGS_TO_DO, HERO_IMAGE_URL } from './constants';
 import { Room } from './types';
-import { Wifi, Star, ShieldCheck, MapPin, Mail, Phone, ChevronDown, Plus, Minus, Hotel, Compass, Car, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Wifi, Star, ShieldCheck, MapPin, Mail, Phone, ChevronDown, Plus, Minus, Hotel, Compass, Car, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // Separate component for Room Card to handle slider state independently
@@ -132,7 +132,7 @@ function App() {
                className="w-full h-full object-cover"
                onError={(e) => {
                  // Fallback to a generic luxury image if the local file is missing/broken
-                 e.currentTarget.src = 'https://unsplash.com/photos/a-statue-of-a-man-is-in-the-middle-of-a-square-IumV7dZSILg';
+                 e.currentTarget.src = 'https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?q=80&w=2000&auto=format&fit=crop';
                }}
              />
              <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-richBlack" />
@@ -218,24 +218,30 @@ function App() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               {THINGS_TO_DO.map((item, index) => (
-                <motion.div 
+                <motion.a 
                   key={index}
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.2 }}
-                  className="bg-black border border-gold-500/20 rounded-lg overflow-hidden group hover:border-gold-500/60 transition-colors"
+                  className="bg-black border border-gold-500/20 rounded-lg overflow-hidden group hover:border-gold-500/60 transition-colors block cursor-pointer"
                 >
-                  <div className="h-48 overflow-hidden">
+                  <div className="h-48 overflow-hidden relative">
                     <img 
                       src={item.image} 
                       alt={item.title} 
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                       onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?q=80&w=800&auto=format&fit=crop'; }}
                     />
+                    <div className="absolute top-2 right-2 bg-black/60 p-1.5 rounded-full text-white opacity-0 group-hover:opacity-100 transition-opacity">
+                      <ExternalLink size={14} />
+                    </div>
                   </div>
                   <div className="p-6">
                     <div className="flex justify-between items-start mb-2">
-                       <h3 className="font-serif text-xl font-bold text-gold-500">{item.title}</h3>
+                       <h3 className="font-serif text-xl font-bold text-gold-500 group-hover:underline decoration-gold-500/50 underline-offset-4 transition-all">{item.title}</h3>
                        <div className="flex items-center gap-1 text-xs text-gray-500 bg-zinc-900 px-2 py-1 rounded">
                          <Compass size={12} />
                          {item.distance}
@@ -243,7 +249,7 @@ function App() {
                     </div>
                     <p className="text-gray-400 text-sm leading-relaxed">{item.description}</p>
                   </div>
-                </motion.div>
+                </motion.a>
               ))}
             </div>
           </div>
