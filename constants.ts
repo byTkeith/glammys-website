@@ -136,12 +136,20 @@ export const FAQS: FaqItem[] = [
 export const GALLERY_IMAGES = [
   '/images/gallery/view HY.jpg',
   '/images/gallery/fireplace.jpeg',
-  '/images/gallery/dining HY 2.jpg',
+  '/images/gallery/dinning HY 2.jpg',
   '/images/gallery/lounge HY 7.jpg',
   '/images/gallery/view wp 2.jpg',
   '/images/gallery/corridor HY.jpg',
   '/images/gallery/gym.jpeg',
   '/images/gallery/pool.jpeg',
   '/images/gallery/view hp pool.jpg',
-  '/images/gallery/HY pool.jpg'
+  '/images/gallery/HY pool.jpg',
+  '/images/gallery/conceirge.jpg',
+  '/images/gallery/corridor HY 5.jpg',
+  '/images/gallery/elevator HY 1.jpg',
+  '/images/gallery/IMG-20251208-WA0089.jpg',
+  //'/images/gallery/westpoint exterior.jpg',
+  '/images/gallery/view wp 5.jpg',
+  '/images/gallery/reception wp.jpg',
+  '/images/gallery/pool.jpg'
 ];
