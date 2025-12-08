@@ -1,11 +1,10 @@
-
 import React, { useState } from 'react';
 import { HashRouter } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Button } from './components/Button';
 import { BookingModal } from './components/BookingModal';
 import { Chatbot } from './components/Chatbot';
-import { ROOMS, FAQS, TEAM, GALLERY_IMAGES, COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_PHONE, THINGS_TO_DO } from './constants';
+import { ROOMS, FAQS, TEAM, GALLERY_IMAGES, COMPANY_ADDRESS, COMPANY_EMAIL, COMPANY_PHONE, THINGS_TO_DO, HERO_IMAGE_URL } from './constants';
 import { Room } from './types';
 import { Wifi, Star, ShieldCheck, MapPin, Mail, Phone, ChevronDown, Plus, Minus, Hotel, Compass, Car, ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -46,7 +45,7 @@ const RoomCard = ({ room, index, onBook }: { room: Room; index: number; onBook: 
             className="w-full h-full object-cover absolute inset-0" 
             onError={(e) => {
               // Fallback if specific image is missing
-              e.currentTarget.src = 'https://placehold.co/600x400/1a1a1a/D4A32B?text=No+Image';
+              e.currentTarget.src = 'https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=800&auto=format&fit=crop';
             }}
           />
         </AnimatePresence>
@@ -125,11 +124,18 @@ function App() {
 
         {/* Hero Section */}
         <header className="relative h-screen flex items-center justify-center overflow-hidden">
-          <div 
-            className="absolute inset-0 bg-cover bg-center z-0" 
-            style={{ backgroundImage: `url('https://picsum.photos/id/402/1920/1080')` }}
-          >
-            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-richBlack" />
+          {/* Replaced Background Image Style with Real IMG tag for robustness */}
+          <div className="absolute inset-0 z-0">
+             <img 
+               src={HERO_IMAGE_URL} 
+               alt="Luxury Hotel" 
+               className="w-full h-full object-cover"
+               onError={(e) => {
+                 // Fallback to a generic luxury image if the local file is missing/broken
+                 e.currentTarget.src = 'https://unsplash.com/photos/a-statue-of-a-man-is-in-the-middle-of-a-square-IumV7dZSILg';
+               }}
+             />
+             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-richBlack" />
           </div>
 
           <motion.div 
@@ -150,7 +156,7 @@ function App() {
             </Button>
           </motion.div>
 
-          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gold-500">
+          <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-gold-500 z-10">
             <ChevronDown size={32} />
           </div>
         </header>
@@ -220,7 +226,12 @@ function App() {
                   className="bg-black border border-gold-500/20 rounded-lg overflow-hidden group hover:border-gold-500/60 transition-colors"
                 >
                   <div className="h-48 overflow-hidden">
-                    <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
+                      onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?q=80&w=800&auto=format&fit=crop'; }}
+                    />
                   </div>
                   <div className="p-6">
                     <div className="flex justify-between items-start mb-2">
@@ -261,7 +272,12 @@ function App() {
                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
                       <span className="text-gold-500 uppercase tracking-widest text-sm font-bold border border-gold-500 px-4 py-2">View</span>
                    </div>
-                   <img src={img} alt="Gallery" className="w-full h-64 md:h-80 object-cover transform group-hover:scale-105 transition-transform duration-500" />
+                   <img 
+                      src={img} 
+                      alt="Gallery" 
+                      className="w-full h-64 md:h-80 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                      onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1611892440504-42a792e24d32?q=80&w=800&auto=format&fit=crop'; }}
+                   />
                  </motion.div>
                ))}
              </div>
@@ -278,7 +294,12 @@ function App() {
             {TEAM.map((member) => (
               <div key={member.id} className="text-center group max-w-xs">
                 <div className="relative w-64 h-64 mx-auto mb-6 rounded-lg overflow-hidden border-2 border-zinc-800 group-hover:border-gold-500 transition-colors shadow-2xl">
-                  <img src={member.image} alt={member.name} className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500" />
+                  <img 
+                    src={member.image} 
+                    alt={member.name} 
+                    className="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-500"
+                    onError={(e) => { e.currentTarget.src = 'https://placehold.co/400x400/1a1a1a/D4A32B?text=Leader'; }}
+                  />
                 </div>
                 <h3 className="text-2xl font-serif font-bold text-white">{member.name}</h3>
                 <p className="text-gold-500 text-sm uppercase tracking-wider mt-2 font-bold">{member.role}</p>
