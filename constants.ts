@@ -55,7 +55,7 @@ export const ROOMS: Room[] = [
     images: [
       '/images/rooms/kitchen wp1.jpg',
       '/images/rooms/tv wp.jpg',
-      '/images/rooms/IMG-20251208-WA0086.jpg',
+      '/images/rooms/IMG-20251208-WA0087.jpg',
       '/images/rooms/bedroom HY 3.jpg',
       '/images/rooms/dining 3.jpeg',
       '/images/rooms/dining.jpeg'
@@ -151,5 +151,5 @@ export const GALLERY_IMAGES = [
   //'/images/gallery/westpoint exterior.jpg',
   '/images/gallery/view wp 5.jpg',
   '/images/gallery/reception wp.jpg',
-  '/images/gallery/pool.jpg'
+  //'/images/gallery/pool.jpg'
 ];
