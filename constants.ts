@@ -12,7 +12,7 @@ export const COMPANY_ADDRESS = "Hydro Park & Westpoint, Sandton, Johannesburg";
 export const HERO_IMAGE_URL = "/images/hero.jpg";
 
 // LOGO SETUP:
-export const COMPANY_LOGO_URL = "/images/logo.png"; 
+export const COMPANY_LOGO_URL = "/images/logo.jpg"; 
 
 // ==========================================
 // ROOMS CONFIGURATION
@@ -24,10 +24,10 @@ export const ROOMS: Room[] = [
     description: 'A sleek, modern sanctuary perfect for the solo business traveller. High-end finishes, open plan living, and immediate access to Sandton CBD.',
     price: 1100,
     images: [
-      '/images/rooms/bedroom HY 4.jpg',
+      '/images/rooms/bedrom HY 4.jpg',
       '/images/rooms/bedroom HY 1.jpeg',
       '/images/rooms/kitchen HY 1.jpeg',
-      '/images/rooms/lounge HY 1.jpeg',
+      '/images/rooms/Lounge HY.jpeg',
       '/images/rooms/tub HY 1.jpeg'
     ],
     amenities: ['Queen Bed', 'Fiber Wi-Fi', 'Workstation', 'En-suite', 'Pool Access'],
@@ -39,8 +39,8 @@ export const ROOMS: Room[] = [
     description: 'Spacious luxury with dual en-suite bedrooms. Features a full designer kitchen, private balcony, and sophisticated lounge area.',
     price: 1700,
     images: [
-      '/images/rooms/lounge HY 2.jpg',
-      '/images/rooms/kitchen HY 2.jpg',
+      '/images/rooms/lounge HY 2.jpeg',
+      '/images/rooms/kitchen HY.jpeg',
       '/images/rooms/HY tub2.jpg',
       '/images/rooms/HY lounge 3.jpg',
     ],
@@ -53,7 +53,7 @@ export const ROOMS: Room[] = [
     description: 'The epitome of executive living. Offers panoramic views, concierge service, and premium furniture fittings for long or short stays.',
     price: 1500,
     images: [
-      '/images/rooms/kitchen wp 1.jpeg',
+      '/images/rooms/kitchen wp1.jpg',
       '/images/rooms/tv wp.jpg',
       '/images/rooms/IMG-20251208-WA0086.jpg',
       '/images/rooms/bedroom HY 3.jpg',
@@ -134,14 +134,14 @@ export const FAQS: FaqItem[] = [
 // GALLERY IMAGES
 // ==========================================
 export const GALLERY_IMAGES = [
-  '/images/gallery/pool HY.jpg',
+  '/images/gallery/view HY.jpg',
   '/images/gallery/fireplace.jpeg',
-  '/images/gallery/dining HY .jpg',
+  '/images/gallery/dining HY 2.jpg',
   '/images/gallery/lounge HY 7.jpg',
   '/images/gallery/view wp 2.jpg',
   '/images/gallery/corridor HY.jpg',
-  '/images/gallery/gym.jpg',
-  '/images/gallery/pool.jpg',
+  '/images/gallery/gym.jpeg',
+  '/images/gallery/pool.jpeg',
   '/images/gallery/view hp pool.jpg',
   '/images/gallery/HY pool.jpg'
 ];
