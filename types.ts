@@ -26,6 +26,7 @@ export interface Activity {
   description: string;
   image: string;
   distance: string;
+  link: string;
 }
 
 export interface BookingDetails {

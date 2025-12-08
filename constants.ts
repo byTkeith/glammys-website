@@ -92,19 +92,22 @@ export const THINGS_TO_DO: Activity[] = [
     title: "Sandton City & Nelson Mandela Square",
     description: "Africa's most prestigious shopping destination featuring world-class dining, high-end fashion brands, and the iconic Nelson Mandela statue.",
     image: "/images/activities/mandela-square.jpg",
-    distance: "5 min drive"
+    distance: "5 min drive",
+    link: "https://nelsonmandelasquare.co.za/"
   },
   {
     title: "The Leonardo - Alto234",
     description: "Visit the highest urban bar in Africa. Enjoy 360-degree views of Johannesburg while sipping on signature cocktails at sunset.",
     image: "/images/activities/leonardo.jpg",
-    distance: "3 min drive"
+    distance: "3 min drive",
+    link: "https://www.alto234.co.za/"
   },
   {
     title: "Mushroom Farm Park",
     description: "A green lung in the center of the city. Perfect for morning jogs, picnics, or taking a ride in the giant Hyundai hot air balloon.",
     image: "/images/activities/park.jpg",
-    distance: "Walking distance"
+    distance: "Walking distance",
+    link: "https://sandtoncentral.co.za/directory/mushroom-farm-park"
   }
 ];
 
