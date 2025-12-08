@@ -4,7 +4,7 @@ import { Room, TeamMember, FaqItem, Activity } from './types';
 // COMPANY BRANDING & DETAILS
 // ==========================================
 export const COMPANY_NAME = "GLAMMYS EXECUTIVE SUITS";
-export const COMPANY_PHONE = "27123456789"; // Format: CountryCode + Number (No + symbol)
+export const COMPANY_PHONE = "27633175581"; // Format: CountryCode + Number (No + symbol)
 export const COMPANY_EMAIL = "reservations@glammys.co.za";
 export const COMPANY_ADDRESS = "Hydro Park & Westpoint, Sandton, Johannesburg";
 
