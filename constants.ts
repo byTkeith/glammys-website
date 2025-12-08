@@ -80,7 +80,7 @@ export const TEAM: TeamMember[] = [
     id: '2',
     name: 'Tendai K. Nyevedzanai',
     role: 'Chief Technology Officer',
-    image: '/images/team/tendai.jpg'
+    image: '/images/team/Tendai.jpg'
   }
 ];
 
