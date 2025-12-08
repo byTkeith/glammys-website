@@ -1,0 +1,137 @@
+
+import { Room, TeamMember, FaqItem, Activity } from './types';
+
+// ==========================================
+// COMPANY BRANDING & DETAILS
+// ==========================================
+export const COMPANY_NAME = "GLAMMYS EXECUTIVE SUITS";
+export const COMPANY_PHONE = "27123456789"; // Format: CountryCode + Number (No + symbol)
+export const COMPANY_EMAIL = "reservations@glammys.co.za";
+export const COMPANY_ADDRESS = "Hydro Park & Westpoint, Sandton, Johannesburg";
+
+// LOGO SETUP:
+export const COMPANY_LOGO_URL = "/images/logo.png"; 
+
+// ==========================================
+// ROOMS CONFIGURATION
+// ==========================================
+export const ROOMS: Room[] = [
+  {
+    id: 'hydro-1bed',
+    name: '1 Bedroom Executive Suite @ Hydro Park',
+    description: 'A sleek, modern sanctuary perfect for the solo business traveller. High-end finishes, open plan living, and immediate access to Sandton CBD.',
+    price: 2500,
+    images: [
+      '/images/rooms/HY-1bed-1.jpg',
+      '/images/rooms/HY-1bed-2.jpg',
+      '/images/rooms/HY-1bed-3.jpg',
+      '/images/rooms/HY-pool.jpg'
+    ],
+    amenities: ['Queen Bed', 'Fiber Wi-Fi', 'Workstation', 'En-suite', 'Pool Access'],
+    maxGuests: 2
+  },
+  {
+    id: 'hydro-2bed',
+    name: '2 Bedroom Executive Suite @ Hydro Park',
+    description: 'Spacious luxury with dual en-suite bedrooms. Features a full designer kitchen, private balcony, and sophisticated lounge area.',
+    price: 4500,
+    images: [
+      '/images/rooms/HY-2bed-1.jpg',
+      '/images/rooms/HY-2bed-2.jpg',
+      '/images/rooms/HY-2bed-3.jpg',
+      '/images/rooms/HY-exterior.jpg'
+    ],
+    amenities: ['2 En-suite Rooms', 'Full Kitchen', 'Balcony', 'Smart TV', 'Secure Parking'],
+    maxGuests: 4
+  },
+  {
+    id: 'westpoint-2bed',
+    name: '2 Bedroom Exec Unit @ Westpoint',
+    description: 'The epitome of executive living. Offers panoramic views, concierge service, and premium furniture fittings for long or short stays.',
+    price: 5500,
+    images: [
+      '/images/rooms/WP-2bed-1.jpg',
+      '/images/rooms/WP-2bed-2.jpg',
+      '/images/rooms/WP-2bed-3.jpg',
+      '/images/rooms/WP-pool.jpg'
+    ],
+    amenities: ['Panoramic Views', '24hr Concierge', 'Gym Access', 'Heated Pool', 'Dining Area'],
+    maxGuests: 4
+  }
+];
+
+// ==========================================
+// LEADERSHIP TEAM
+// ==========================================
+export const TEAM: TeamMember[] = [
+  {
+    id: '1',
+    name: 'Pamela S.N Silungwe',
+    role: 'Executive Director',
+    image: '/images/team/pamela.jpg'
+  },
+  {
+    id: '2',
+    name: 'Tendai K. Nyevedzanai',
+    role: 'Chief Technology Officer',
+    image: '/images/team/tendai.jpg'
+  }
+];
+
+// ==========================================
+// THINGS TO DO (EXPLORE)
+// ==========================================
+export const THINGS_TO_DO: Activity[] = [
+  {
+    title: "Sandton City & Nelson Mandela Square",
+    description: "Africa's most prestigious shopping destination featuring world-class dining, high-end fashion brands, and the iconic Nelson Mandela statue.",
+    image: "/images/activities/mandela-square.jpg",
+    distance: "5 min drive"
+  },
+  {
+    title: "The Leonardo - Alto234",
+    description: "Visit the highest urban bar in Africa. Enjoy 360-degree views of Johannesburg while sipping on signature cocktails at sunset.",
+    image: "/images/activities/leonardo.jpg",
+    distance: "3 min drive"
+  },
+  {
+    title: "Mushroom Farm Park",
+    description: "A green lung in the center of the city. Perfect for morning jogs, picnics, or taking a ride in the giant Hyundai hot air balloon.",
+    image: "/images/activities/park.jpg",
+    distance: "Walking distance"
+  }
+];
+
+// ==========================================
+// FREQUENTLY ASKED QUESTIONS
+// ==========================================
+export const FAQS: FaqItem[] = [
+  {
+    question: "What is the difference between Hydro Park and Westpoint units?",
+    answer: "Both are premium buildings. Hydro Park is known for its modern artistic flair and central location, while Westpoint offers extensive resort-style facilities including a large heated pool and gym."
+  },
+  {
+    question: "Do you offer airport shuttles?",
+    answer: "Yes, we offer a premium shuttle service to and from O.R. Tambo International Airport. Please request this when booking."
+  },
+  {
+    question: "Is there secure parking available?",
+    answer: "Absolutely. Both Hydro Park and Westpoint provide 24-hour secure underground parking for all our guests."
+  },
+  {
+    question: "What time is check-in and check-out?",
+    answer: "Check-in is from 14:00 PM, and check-out is strictly at 11:00 AM."
+  }
+];
+
+// ==========================================
+// GALLERY IMAGES
+// ==========================================
+export const GALLERY_IMAGES = [
+  '/images/gallery/1.jpg',
+  '/images/gallery/2.jpg',
+  '/images/gallery/3.jpg',
+  '/images/gallery/4.jpg',
+  '/images/gallery/5.jpg',
+  '/images/gallery/6.jpg'
+];
