@@ -1,4 +1,3 @@
-
 import { Room, TeamMember, FaqItem, Activity } from './types';
 
 // ==========================================
@@ -8,6 +7,9 @@ export const COMPANY_NAME = "GLAMMYS EXECUTIVE SUITS";
 export const COMPANY_PHONE = "27123456789"; // Format: CountryCode + Number (No + symbol)
 export const COMPANY_EMAIL = "reservations@glammys.co.za";
 export const COMPANY_ADDRESS = "Hydro Park & Westpoint, Sandton, Johannesburg";
+
+// 2. CHANGE YOUR LANDING PAGE (HERO) IMAGE HERE
+export const HERO_IMAGE_URL = "/images/hero.jpg";
 
 // LOGO SETUP:
 export const COMPANY_LOGO_URL = "/images/logo.png"; 
@@ -20,12 +22,13 @@ export const ROOMS: Room[] = [
     id: 'hydro-1bed',
     name: '1 Bedroom Executive Suite @ Hydro Park',
     description: 'A sleek, modern sanctuary perfect for the solo business traveller. High-end finishes, open plan living, and immediate access to Sandton CBD.',
-    price: 2500,
+    price: 1100,
     images: [
-      '/images/rooms/HY-1bed-1.jpg',
-      '/images/rooms/HY-1bed-2.jpg',
-      '/images/rooms/HY-1bed-3.jpg',
-      '/images/rooms/HY-pool.jpg'
+      '/images/rooms/bedroom HY 4.jpg',
+      '/images/rooms/bedroom HY 1.jpeg',
+      '/images/rooms/kitchen HY 1.jpeg',
+      '/images/rooms/lounge HY 1.jpeg',
+      '/images/rooms/tub HY 1.jpeg'
     ],
     amenities: ['Queen Bed', 'Fiber Wi-Fi', 'Workstation', 'En-suite', 'Pool Access'],
     maxGuests: 2
@@ -34,12 +37,12 @@ export const ROOMS: Room[] = [
     id: 'hydro-2bed',
     name: '2 Bedroom Executive Suite @ Hydro Park',
     description: 'Spacious luxury with dual en-suite bedrooms. Features a full designer kitchen, private balcony, and sophisticated lounge area.',
-    price: 4500,
+    price: 1700,
     images: [
-      '/images/rooms/HY-2bed-1.jpg',
-      '/images/rooms/HY-2bed-2.jpg',
-      '/images/rooms/HY-2bed-3.jpg',
-      '/images/rooms/HY-exterior.jpg'
+      '/images/rooms/lounge HY 2.jpg',
+      '/images/rooms/kitchen HY 2.jpg',
+      '/images/rooms/HY tub2.jpg',
+      '/images/rooms/HY lounge 3.jpg',
     ],
     amenities: ['2 En-suite Rooms', 'Full Kitchen', 'Balcony', 'Smart TV', 'Secure Parking'],
     maxGuests: 4
@@ -48,12 +51,15 @@ export const ROOMS: Room[] = [
     id: 'westpoint-2bed',
     name: '2 Bedroom Exec Unit @ Westpoint',
     description: 'The epitome of executive living. Offers panoramic views, concierge service, and premium furniture fittings for long or short stays.',
-    price: 5500,
+    price: 1500,
     images: [
-      '/images/rooms/WP-2bed-1.jpg',
-      '/images/rooms/WP-2bed-2.jpg',
-      '/images/rooms/WP-2bed-3.jpg',
-      '/images/rooms/WP-pool.jpg'
+      '/images/rooms/kitchen wp 1.jpeg',
+      '/images/rooms/tv wp.jpg',
+      '/images/rooms/IMG-20251208-WA0086.jpg',
+      '/images/rooms/bedroom HY 3.jpg',
+      '/images/rooms/dining 3.jpeg',
+      '/images/rooms/dining.jpeg'
+
     ],
     amenities: ['Panoramic Views', '24hr Concierge', 'Gym Access', 'Heated Pool', 'Dining Area'],
     maxGuests: 4
@@ -128,10 +134,14 @@ export const FAQS: FaqItem[] = [
 // GALLERY IMAGES
 // ==========================================
 export const GALLERY_IMAGES = [
-  '/images/gallery/1.jpg',
-  '/images/gallery/2.jpg',
-  '/images/gallery/3.jpg',
-  '/images/gallery/4.jpg',
-  '/images/gallery/5.jpg',
-  '/images/gallery/6.jpg'
+  '/images/gallery/pool HY.jpg',
+  '/images/gallery/fireplace.jpeg',
+  '/images/gallery/dining HY .jpg',
+  '/images/gallery/lounge HY 7.jpg',
+  '/images/gallery/view wp 2.jpg',
+  '/images/gallery/corridor HY.jpg',
+  '/images/gallery/gym.jpg',
+  '/images/gallery/pool.jpg',
+  '/images/gallery/view hp pool.jpg',
+  '/images/gallery/HY pool.jpg'
 ];
