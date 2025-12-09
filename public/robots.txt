@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://glammys-website.vercel.app/sitemap.xml
