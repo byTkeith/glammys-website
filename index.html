@@ -3,7 +3,76 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GLAMMYS EXECUTIVE SUITS | Sandton</title>
+    
+    <!-- SEO Meta Tags -->
+    <title>GLAMMYS EXECUTIVE SUITS | Luxury Accommodation Sandton</title>
+    <meta name="description" content="Experience premium luxury living at Glammys Executive Suits in Sandton, Johannesburg. Modern 1 & 2 bedroom apartments at Hydro Park & Westpoint with 5-star amenities." />
+    <meta name="keywords" content="Sandton accommodation, luxury suites Johannesburg, Hydro Park Sandton, Westpoint apartments, executive suites Sandton, hotel Sandton, short term rental Sandton, business travel Johannesburg" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://glammys-website.vercel.app/" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://glammys-website.vercel.app/" />
+    <meta property="og:title" content="GLAMMYS EXECUTIVE SUITS | Luxury Sandton Accommodation" />
+    <meta property="og:description" content="Experience premium luxury living in the heart of Sandton. Book your executive suite today." />
+    <meta property="og:image" content="https://glammys-website.vercel.app/images/hero.jpg" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://glammys-website.vercel.app/" />
+    <meta property="twitter:title" content="GLAMMYS EXECUTIVE SUITS | Luxury Sandton Accommodation" />
+    <meta property="twitter:description" content="Experience premium luxury living in the heart of Sandton. Book your executive suite today." />
+    <meta property="twitter:image" content="https://glammys-website.vercel.app/images/hero.jpg" />
+
+    <!-- Structured Data (JSON-LD) for Local Business -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LodgingBusiness",
+      "name": "GLAMMYS EXECUTIVE SUITS",
+      "image": [
+        "https://glammys-website.vercel.app/images/hero.jpg",
+        "https://glammys-website.vercel.app/images/logo.jpg"
+      ],
+      "@id": "https://glammys-website.vercel.app/",
+      "url": "https://glammys-website.vercel.app/",
+      "telephone": "+27633175581",
+      "email": "glammysluxurysuites@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Hydro Park & Westpoint",
+        "addressLocality": "Sandton",
+        "addressRegion": "Gauteng",
+        "postalCode": "2196",
+        "addressCountry": "ZA"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": -26.1020,
+        "longitude": 28.0560
+      },
+      "priceRange": "R1100 - R1700",
+      "amenityFeature": [
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Free Wi-Fi",
+          "value": "True"
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Secure Parking",
+          "value": "True"
+        },
+        {
+          "@type": "LocationFeatureSpecification",
+          "name": "Swimming Pool",
+          "value": "True"
+        }
+      ]
+    }
+    </script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <script>
@@ -62,14 +131,14 @@
     "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
     "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.10.1",
     "@google/genai": "https://aistudiocdn.com/@google/genai@^1.31.0",
-    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.25"
+    "framer-motion": "https://aistudiocdn.com/framer-motion@^12.23.25",
+    "@vitejs/plugin-react": "https://aistudiocdn.com/@vitejs/plugin-react@^5.1.2",
+    "vite": "https://aistudiocdn.com/vite@^7.2.7"
   }
 }
 </script>
-<link rel="stylesheet" href="/index.css">
 </head>
   <body>
     <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+  </body>
 </html>
