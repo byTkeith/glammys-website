@@ -16,6 +16,16 @@ export const initializeChat = async () => {
       `- ${a.title} (${a.distance}): ${a.description}`
     ).join('\n           ');
 
+    // Extended knowledge base for broader Johannesburg attractions
+    const extendedAttractions = `
+           - Melrose Arch (~10 min drive): A trendy mixed-use precinct with cobblestone streets, open-air cafes, and high-end retail.
+           - Montecasino (~20 min drive): Johannesburg's premier entertainment destination styled like an Italian village, featuring a casino, theaters, and bird park.
+           - Johannesburg Zoo (~15 min drive): A 55-hectare zoo in the heart of the city, housing over 320 species.
+           - Gold Reef City (~25 min drive): A large amusement park and casino built around an authentic 19th-century gold mine.
+           - The Apartheid Museum (~25 min drive): A world-class museum illustrating the rise and fall of apartheid. Essential for understanding South African history.
+           - Soweto Towers (~40 min drive): Iconic cooling towers in Soweto offering extreme sports like bungee jumping and paintball.
+           - Vilakazi Street (~40 min drive): Located in Soweto, it is the only street in the world to have housed two Nobel Prize winners (Nelson Mandela & Desmond Tutu). Offers great local cuisine and history.`;
+
     const systemInstruction = `You are the Virtual Concierge for 'GLAMMYS EXECUTIVE SUITS', a luxury accommodation provider in Sandton, South Africa. 
         
     Your tone is: Sophisticated, warm, professional, and helpful. 
@@ -38,13 +48,15 @@ export const initializeChat = async () => {
     4. ROOMS & PRICES:
        ${roomList}
     
-    5. NEARBY ATTRACTIONS:
+    5. NEARBY ATTRACTIONS & EXPLORING JOHANNESBURG:
        ${activitiesList}
+       ${extendedAttractions}
     
     You can help guests with:
     - Describing specific rooms and amenities.
     - Providing location details for 86 and 89 Grayston Drive.
     - Explaining the detailed backgrounds of the leadership team (Pamela and Tendai) if asked.
+    - Suggesting things to do in Sandton and broader Johannesburg (Melrose Arch, Soweto, Gold Reef City, etc.).
     - Booking advice: Tell them to click 'Book This Suite' to request via WhatsApp.
     
     IMPORTANT RULES: 
