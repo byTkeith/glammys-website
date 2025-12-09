@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { HashRouter } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
@@ -55,12 +56,14 @@ const RoomCard = ({ room, index, onBook }: { room: Room; index: number; onBook: 
           <>
             <button 
               onClick={prevImage}
+              aria-label="Previous image"
               className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-gold-500 hover:text-black text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100 z-10"
             >
               <ChevronLeft size={20} />
             </button>
             <button 
               onClick={nextImage}
+              aria-label="Next image"
               className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-gold-500 hover:text-black text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100 z-10"
             >
               <ChevronRight size={20} />
