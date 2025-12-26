@@ -37,7 +37,7 @@ export const StorageService = {
 
   login: (username: string, password: string): boolean => {
     // Requirements: Username 'admin' and Password 'glammys2025'
-    if (username.toLowerCase() === 'Pam@GLAMMYS' && password === 'Pam78#08!') {
+    if (username.toLowerCase() === 'Pam' && password === 'Pam7825') {
       localStorage.setItem(STORAGE_KEYS.AUTH, 'true');
       return true;
     }
