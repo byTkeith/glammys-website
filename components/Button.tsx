@@ -1,7 +1,8 @@
+
 import React from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'outline';
+  variant?: 'primary' | 'outline' | 'ghost';
   fullWidth?: boolean;
 }
 
@@ -12,11 +13,12 @@ export const Button: React.FC<ButtonProps> = ({
   className = '',
   ...props 
 }) => {
-  const baseStyles = "px-6 py-3 font-semibold transition-all duration-300 uppercase tracking-widest text-sm flex items-center justify-center gap-2";
+  const baseStyles = "px-8 py-4 font-black transition-all duration-500 uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3 rounded-xl disabled:opacity-50 disabled:cursor-not-allowed transform active:scale-[0.98]";
   
   const variants = {
-    primary: "bg-gold-500 text-richBlack hover:bg-gold-400 hover:shadow-[0_0_15px_rgba(212,163,43,0.5)]",
-    outline: "border border-gold-500 text-gold-500 hover:bg-gold-500 hover:text-richBlack"
+    primary: "bg-gradient-to-br from-gold-300 via-gold-500 to-gold-600 text-richBlack hover:shadow-[0_15px_30px_-10px_rgba(212,163,43,0.4)] hover:-translate-y-0.5",
+    outline: "border border-gold-500/50 text-gold-500 hover:bg-gold-500/10 hover:border-gold-500 shadow-xl",
+    ghost: "text-zinc-500 hover:text-gold-500 hover:bg-zinc-800/50"
   };
 
   return (
