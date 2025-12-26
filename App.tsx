@@ -10,7 +10,7 @@ import {
   Wifi, Star, ShieldCheck, MapPin, Mail, Phone, ChevronDown, 
   Plus, Minus, Hotel, Compass, Car, ChevronLeft, ChevronRight, 
   ExternalLink, Trash2, Save, BedDouble, Users, Settings, LogIn, User,
-  MessageCircle, Eye, EyeOff
+  MessageCircle, Eye, EyeOff, Image as ImageIcon
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StorageService } from './services/storageService';
@@ -58,16 +58,10 @@ const RoomCard = ({ room, index, onBook }: { room: Room; index: number; onBook: 
 
         {room.images.length > 1 && (
           <>
-            <button 
-              onClick={prevImage}
-              className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-md hover:bg-gold-500 hover:text-black text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100 z-10"
-            >
+            <button onClick={prevImage} className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-md hover:bg-gold-500 hover:text-black text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100 z-10">
               <ChevronLeft size={20} />
             </button>
-            <button 
-              onClick={nextImage}
-              className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-md hover:bg-gold-500 hover:text-black text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100 z-10"
-            >
+            <button onClick={nextImage} className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 backdrop-blur-md hover:bg-gold-500 hover:text-black text-white p-2 rounded-full transition-all opacity-0 group-hover:opacity-100 z-10">
               <ChevronRight size={20} />
             </button>
             <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-10">
@@ -84,8 +78,8 @@ const RoomCard = ({ room, index, onBook }: { room: Room; index: number; onBook: 
       </div>
 
       <div className="p-8 flex flex-col flex-grow">
-        <h3 className="font-serif text-2xl font-bold text-white mb-3 group-hover:text-gold-400 transition-colors">{room.name}</h3>
-        <p className="text-gray-400 text-sm mb-6 line-clamp-2 flex-grow leading-relaxed">{room.description}</p>
+        <h3 className="font-serif text-2xl font-bold text-white mb-3 group-hover:text-gold-400 transition-colors uppercase tracking-tight">{room.name}</h3>
+        <p className="text-gray-400 text-sm mb-6 line-clamp-2 flex-grow leading-relaxed font-light">{room.description}</p>
         <div className="flex flex-wrap gap-2 mb-8">
             {room.amenities.slice(0, 4).map(am => (
               <span key={am} className="text-[9px] bg-zinc-800/80 text-gold-300 px-3 py-1 rounded-full border border-gold-500/10 uppercase tracking-[0.15em] font-bold">
@@ -192,7 +186,7 @@ const PublicWebsite = () => {
       {/* Rooms Section */}
       <section id="suites" className="py-32 px-6 container mx-auto">
         <div className="text-center mb-24">
-          <h2 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6">Signature Collection</h2>
+          <h2 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6 uppercase tracking-tighter">Signature Collection</h2>
           <div className="w-32 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto rounded-full" />
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
@@ -202,12 +196,39 @@ const PublicWebsite = () => {
         </div>
       </section>
 
+      {/* Gallery Section */}
+      <section id="gallery" className="py-32 bg-zinc-950/30">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-20">
+            <h2 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6 uppercase tracking-tighter">Visual Experience</h2>
+            <p className="text-gold-500 uppercase tracking-[0.3em] text-xs font-bold">A Glimpse into the Golden Standard</p>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+            {GALLERY_IMAGES.map((img, idx) => (
+              <motion.div 
+                key={idx}
+                initial={{ opacity: 0, scale: 0.9 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: (idx % 4) * 0.1 }}
+                className="relative aspect-square overflow-hidden rounded-2xl group cursor-pointer border border-zinc-800 hover:border-gold-500/50 transition-all duration-500 shadow-2xl"
+              >
+                <img src={img} alt={`Gallery ${idx}`} className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" />
+                <div className="absolute inset-0 bg-gold-500/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                   <ImageIcon className="text-white" size={32} />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Explore Section */}
       <section id="explore" className="py-32 bg-richBlack">
         <div className="container mx-auto px-6">
           <div className="mb-20 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-8">
             <div>
-              <h2 className="font-serif text-5xl md:text-6xl font-bold text-white mb-4">The Golden Square Mile</h2>
+              <h2 className="font-serif text-5xl md:text-6xl font-bold text-white mb-4 uppercase tracking-tighter">The Golden Square Mile</h2>
               <p className="text-gold-500 uppercase tracking-widest text-xs font-bold">Discover Sandton's Best Attractions</p>
             </div>
             <div className="hidden md:block w-48 h-px bg-gold-500/30" />
@@ -229,7 +250,7 @@ const PublicWebsite = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
                 </div>
                 <div className="p-8 relative">
-                  <h3 className="font-serif text-2xl font-bold text-white mb-3 group-hover:text-gold-400 transition-colors">{item.title}</h3>
+                  <h3 className="font-serif text-2xl font-bold text-white mb-3 group-hover:text-gold-400 transition-colors uppercase tracking-tight">{item.title}</h3>
                   <p className="text-gray-400 text-sm mb-8 leading-relaxed font-light">{item.description}</p>
                   <div className="flex items-center justify-between">
                     <span className="text-zinc-500 text-[10px] uppercase tracking-widest font-bold flex items-center gap-2">
@@ -246,11 +267,45 @@ const PublicWebsite = () => {
         </div>
       </section>
 
+      {/* Team Section */}
+      <section id="team" className="py-32 container mx-auto px-6">
+        <div className="text-center mb-24">
+          <h2 className="font-serif text-5xl md:text-6xl font-bold text-white mb-6 uppercase tracking-tighter">Executive Leadership</h2>
+          <div className="w-32 h-1 bg-gradient-to-r from-transparent via-gold-500 to-transparent mx-auto rounded-full" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-5xl mx-auto">
+          {team.map((member, index) => (
+            <motion.div 
+              key={member.id}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+              className="group text-center md:text-left flex flex-col md:flex-row items-center gap-10"
+            >
+              <div className="relative flex-shrink-0">
+                <div className="absolute inset-0 bg-gold-500 translate-x-4 translate-y-4 rounded-3xl opacity-10 group-hover:opacity-30 transition-all -z-10" />
+                <img src={member.image} alt={member.name} className="w-56 h-72 md:w-64 md:h-80 rounded-3xl object-cover grayscale group-hover:grayscale-0 transition-all duration-700 shadow-2xl border border-zinc-800" />
+              </div>
+              <div className="space-y-4">
+                <h3 className="text-4xl font-serif font-bold text-white group-hover:text-gold-400 transition-colors tracking-tight uppercase">{member.name}</h3>
+                <p className="text-gold-500 text-xs uppercase font-black tracking-[0.3em]">{member.role}</p>
+                <p className="text-gray-400 text-sm leading-relaxed font-light italic">"{member.bio}"</p>
+                <div className="pt-4 flex gap-4 justify-center md:justify-start">
+                   <div className="w-8 h-px bg-gold-500/30 self-center" />
+                   <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Leading with excellence</span>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
       {/* FAQ Section */}
       <section id="faq" className="py-32 bg-zinc-950/50">
         <div className="container mx-auto px-6 max-w-4xl">
           <div className="text-center mb-20">
-            <h2 className="font-serif text-5xl font-bold text-white mb-6">Concierge Inquiries</h2>
+            <h2 className="font-serif text-5xl font-bold text-white mb-6 uppercase tracking-tighter">Concierge Inquiries</h2>
             <p className="text-gray-500 font-light">Frequently asked questions about your upcoming stay.</p>
           </div>
           <div className="space-y-6">
@@ -273,7 +328,7 @@ const PublicWebsite = () => {
                       exit={{ height: 0, opacity: 0 }}
                       className="overflow-hidden"
                     >
-                      <div className="p-8 pt-0 text-gray-400 leading-relaxed border-t border-zinc-900 mx-8">
+                      <div className="p-8 pt-0 text-gray-400 leading-relaxed border-t border-zinc-900 mx-8 font-light">
                         {faq.answer}
                       </div>
                     </motion.div>
@@ -290,7 +345,7 @@ const PublicWebsite = () => {
         <div className="container mx-auto px-6">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
             <div className="col-span-1 md:col-span-2">
-              <h4 className="font-serif text-4xl font-bold text-white mb-8 tracking-tighter">GLAMMYS</h4>
+              <h4 className="font-serif text-4xl font-bold text-white mb-8 tracking-tighter uppercase">GLAMMYS</h4>
               <p className="text-gray-500 text-lg leading-relaxed max-w-md font-light italic">
                 "Where elegance meets convenience in Africa's golden square mile. We offer more than a room; we offer an experience of unparalleled comfort."
               </p>
@@ -342,9 +397,10 @@ const AdminLogin = () => {
     setIsLoggingIn(true);
     setError('');
 
-    // Explicitly use Trim to ensure no whitespace errors
+    // Explicitly using hardcoded check for safety
     setTimeout(() => {
-      if (StorageService.login(username, password)) {
+      const success = StorageService.login(username, password);
+      if (success) {
         navigate('/admin');
       } else {
         setError('Authorization Failed: Identity or Access Key is incorrect.');
@@ -451,7 +507,7 @@ const AdminDashboard = () => (
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.8 }}
       >
-        <h1 className="text-6xl font-serif font-bold text-white mb-4">Master View</h1>
+        <h1 className="text-6xl font-serif font-bold text-white mb-4 uppercase tracking-tighter">Master View</h1>
         <p className="text-gray-500 text-xl mb-16 italic font-light tracking-wide">Orchestrating the golden standard of Glammys Executive Suites.</p>
       </motion.div>
       
@@ -471,7 +527,7 @@ const AdminDashboard = () => (
               <div className="text-gold-500 mx-auto mb-8 group-hover:scale-110 transition-transform bg-gold-500/5 w-24 h-24 rounded-3xl flex items-center justify-center border border-gold-500/10">
                 {item.icon}
               </div>
-              <h3 className="text-3xl font-bold text-white mb-2">{item.label}</h3>
+              <h3 className="text-3xl font-bold text-white mb-2 uppercase tracking-tight">{item.label}</h3>
               <p className="text-gray-600 text-sm uppercase tracking-widest font-bold">{item.desc}</p>
             </Link>
           </motion.div>
@@ -489,7 +545,7 @@ const AdminRooms = () => {
     <AdminLayout>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16">
         <div>
-          <h1 className="text-5xl font-serif font-bold text-white mb-2">Suites Inventory</h1>
+          <h1 className="text-5xl font-serif font-bold text-white mb-2 uppercase tracking-tighter">Suites Inventory</h1>
           <p className="text-gray-500 font-light italic">Configure nightly rates and presentation details.</p>
         </div>
         <Button onClick={save} className="h-14 px-10"><Save size={20} /> Deploy Changes</Button>
@@ -516,7 +572,7 @@ const AdminRooms = () => {
                 <div className="space-y-3">
                   <label className="text-[10px] uppercase tracking-[0.3em] text-gold-500/50 font-black">Suite Title</label>
                   <input 
-                    className="text-3xl font-serif font-bold bg-transparent text-white w-full outline-none border-b border-zinc-800 focus:border-gold-500 pb-3 transition-colors" 
+                    className="text-3xl font-serif font-bold bg-transparent text-white w-full outline-none border-b border-zinc-800 focus:border-gold-500 pb-3 transition-colors uppercase tracking-tight" 
                     value={room.name} 
                     onChange={(e) => { const nr = [...rooms]; nr[idx].name = e.target.value; setRooms(nr); }}
                   />
