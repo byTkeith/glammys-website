@@ -41,7 +41,7 @@ export const StorageService = {
     const cleanUsername = (username || '').toLowerCase().trim();
     const cleanPassword = (password || '').trim();
     
-    if (cleanUsername === 'admin' && cleanPassword === 'glammys2025') {
+    if (cleanUsername === 'Pam@Glam' && cleanPassword === 'Pam@7808') {
       localStorage.setItem(STORAGE_KEYS.AUTH, 'true');
       return true;
     }
