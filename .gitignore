@@ -61,3 +61,4 @@ typings/
 # production build output
 dist
 build
+.vercel

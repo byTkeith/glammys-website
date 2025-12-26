@@ -1,3 +1,4 @@
+
 import { GoogleGenAI, Chat } from "@google/genai";
 import { ROOMS, THINGS_TO_DO, COMPANY_ADDRESS } from '../constants';
 
@@ -64,8 +65,9 @@ export const initializeChat = async () => {
     - If asked about check-out, emphasize strictly 10:00 AM.
     - Keep responses concise, elegant, and focused on luxury.`;
     
+    // Updated model to gemini-3-flash-preview as per developer instructions for basic text tasks
     chatSession = ai.chats.create({
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3-flash-preview',
       config: {
         systemInstruction
       }
