@@ -22,7 +22,7 @@ export const ROOMS: Room[] = [
     id: 'hydro-1bed',
     name: '1 Bedroom Executive Suite @ Hydro Park',
     description: 'A sleek, modern sanctuary perfect for the solo business traveller. High-end finishes, open plan living, and immediate access to Sandton CBD.',
-    price: 1100,
+    price: 900,
     images: [
       '/images/rooms/bedrom HY 4.jpg',
       '/images/rooms/bedroom HY 1.jpeg',
@@ -37,7 +37,7 @@ export const ROOMS: Room[] = [
     id: 'hydro-2bed',
     name: '2 Bedroom Executive Suite @ Hydro Park',
     description: 'Spacious luxury with dual en-suite bedrooms. Features a full designer kitchen, private balcony, and sophisticated lounge area.',
-    price: 1700,
+    price: 1200,
     images: [
       '/images/rooms/lounge HY 2.jpeg',
       '/images/rooms/kitchen HY.jpeg',
@@ -51,7 +51,7 @@ export const ROOMS: Room[] = [
     id: 'westpoint-2bed',
     name: '2 Bedroom Exec Unit @ Westpoint',
     description: 'The epitome of executive living. Offers panoramic views, concierge service, and premium furniture fittings for long or short stays.',
-    price: 1500,
+    price: 1100,
     images: [
       '/images/rooms/kitchen wp1.jpg',
       '/images/rooms/tv wp.jpg',
