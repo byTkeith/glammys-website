@@ -1,16 +1,15 @@
-
+// App.tsx
 import React, { useState, useEffect } from 'react';
-import { HashRouter, Routes, Route, useNavigate, Navigate, Link, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, useNavigate, Navigate, Link } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Button } from './components/Button';
 import { BookingModal } from './components/BookingModal';
 import { Chatbot } from './components/Chatbot';
 import { Room, TeamMember, FaqItem, Activity } from './types';
 import { 
-  Wifi, Star, ShieldCheck, MapPin, Mail, Phone, ChevronDown, 
-  Plus, Minus, Hotel, Compass, Car, ChevronLeft, ChevronRight, 
-  ExternalLink, Trash2, Save, BedDouble, Users, Settings, LogIn, User,
-  MessageCircle, Eye, EyeOff, Image as ImageIcon
+  MapPin, Mail, Phone, ChevronDown, Plus, Minus, ChevronLeft, ChevronRight, 
+  Trash2, Save, BedDouble, Users, Settings, LogIn, User,
+  MessageCircle, Eye, EyeOff, Image as ImageIcon, Upload, Map
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StorageService } from './services/storageService';
@@ -81,11 +80,11 @@ const RoomCard = ({ room, index, onBook }: { room: Room; index: number; onBook: 
         <h3 className="font-serif text-2xl font-bold text-white mb-3 group-hover:text-gold-400 transition-colors uppercase tracking-tight">{room.name}</h3>
         <p className="text-gray-400 text-sm mb-6 line-clamp-2 flex-grow leading-relaxed font-light">{room.description}</p>
         <div className="flex flex-wrap gap-2 mb-8">
-            {room.amenities.slice(0, 4).map(am => (
-              <span key={am} className="text-[9px] bg-zinc-800/80 text-gold-300 px-3 py-1 rounded-full border border-gold-500/10 uppercase tracking-[0.15em] font-bold">
-                {am}
-              </span>
-            ))}
+          {room.amenities.slice(0, 4).map(am => (
+            <span key={am} className="text-[9px] bg-zinc-800/80 text-gold-300 px-3 py-1 rounded-full border border-gold-500/10 uppercase tracking-[0.15em] font-bold">
+              {am}
+            </span>
+          ))}
         </div>
         <Button fullWidth onClick={() => onBook(room)}>Book This Suite</Button>
       </div>
@@ -93,16 +92,29 @@ const RoomCard = ({ room, index, onBook }: { room: Room; index: number; onBook: 
   );
 };
 
-// --- PAGE COMPONENTS ---
+// --- PUBLIC WEBSITE COMPONENT ---
 
 const PublicWebsite = () => {
-  const [rooms] = useState<Room[]>(StorageService.getRooms());
-  const [team] = useState<TeamMember[]>(StorageService.getTeam());
-  const [faqs] = useState<FaqItem[]>(StorageService.getFaqs());
-  const [explore] = useState<Activity[]>(StorageService.getExplore());
+  const [rooms, setRooms] = useState<Room[]>(StorageService.getRooms());
+  const [team, setTeam] = useState<TeamMember[]>(StorageService.getTeam());
+  const [faqs, setFaqs] = useState<FaqItem[]>(StorageService.getFaqs());
+  const [explore, setExplore] = useState<Activity[]>(StorageService.getExplore());
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  // Sync state whenever Admin makes updates
+  useEffect(() => {
+    const handleDataUpdate = () => {
+      setRooms(StorageService.getRooms());
+      setTeam(StorageService.getTeam());
+      setFaqs(StorageService.getFaqs());
+      setExplore(StorageService.getExplore());
+    };
+
+    window.addEventListener('glammys-data-updated', handleDataUpdate);
+    return () => window.removeEventListener('glammys-data-updated', handleDataUpdate);
+  }, []);
 
   return (
     <div className="min-h-screen bg-richBlack text-gray-200 selection:bg-gold-500 selection:text-black font-sans">
@@ -111,15 +123,15 @@ const PublicWebsite = () => {
       {/* Hero Section */}
       <header className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-           <motion.img 
-              initial={{ scale: 1.2 }}
-              animate={{ scale: 1 }}
-              transition={{ duration: 10, ease: "easeOut" }}
-              src={HERO_IMAGE_URL} 
-              alt="Luxury Hotel" 
-              className="w-full h-full object-cover" 
-           />
-           <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/40 to-richBlack" />
+          <motion.img 
+            initial={{ scale: 1.2 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 10, ease: "easeOut" }}
+            src={HERO_IMAGE_URL} 
+            alt="Luxury Hotel" 
+            className="w-full h-full object-cover" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/90 via-black/40 to-richBlack" />
         </div>
 
         <motion.div 
@@ -166,20 +178,20 @@ const PublicWebsite = () => {
       {/* Intro Section */}
       <section className="py-32 px-6 bg-zinc-950 border-y border-gold-500/10">
         <div className="container mx-auto max-w-4xl text-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <h2 className="text-gold-500 uppercase tracking-[0.3em] text-xs font-bold">Unparalleled Luxury</h2>
-              <p className="font-serif text-3xl md:text-5xl text-white leading-tight">
-                Combining the comfort of home with the <span className="text-gold-400 italic">prestige of a world-class hotel</span>.
-              </p>
-              <p className="text-gray-500 text-lg font-light leading-relaxed">
-                Whether for a high-stakes business trip or a tranquil city getaway, Glammys Executive Suites provides a sanctuary of peace and productivity at 86 & 89 Grayston Drive.
-              </p>
-            </motion.div>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <h2 className="text-gold-500 uppercase tracking-[0.3em] text-xs font-bold">Unparalleled Luxury</h2>
+            <p className="font-serif text-3xl md:text-5xl text-white leading-tight">
+              Combining the comfort of home with the <span className="text-gold-400 italic">prestige of a world-class hotel</span>.
+            </p>
+            <p className="text-gray-500 text-lg font-light leading-relaxed">
+              Whether for a high-stakes business trip or a tranquil city getaway, Glammys Executive Suites provides a sanctuary of peace and productivity at Hydro Park & Westpoint.
+            </p>
+          </motion.div>
         </div>
       </section>
 
@@ -215,7 +227,7 @@ const PublicWebsite = () => {
               >
                 <img src={img} alt={`Gallery ${idx}`} className="w-full h-full object-cover grayscale-[0.3] group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700" />
                 <div className="absolute inset-0 bg-gold-500/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                   <ImageIcon className="text-white" size={32} />
+                  <ImageIcon className="text-white" size={32} />
                 </div>
               </motion.div>
             ))}
@@ -239,6 +251,7 @@ const PublicWebsite = () => {
                 key={index}
                 href={item.link}
                 target="_blank"
+                rel="noopener noreferrer"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
@@ -290,10 +303,10 @@ const PublicWebsite = () => {
               <div className="space-y-4">
                 <h3 className="text-4xl font-serif font-bold text-white group-hover:text-gold-400 transition-colors tracking-tight uppercase">{member.name}</h3>
                 <p className="text-gold-500 text-xs uppercase font-black tracking-[0.3em]">{member.role}</p>
-                <p className="text-gray-400 text-sm leading-relaxed font-light italic">"{member.bio}"</p>
+                {member.bio && <p className="text-gray-400 text-sm leading-relaxed font-light italic">"{member.bio}"</p>}
                 <div className="pt-4 flex gap-4 justify-center md:justify-start">
-                   <div className="w-8 h-px bg-gold-500/30 self-center" />
-                   <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Leading with excellence</span>
+                  <div className="w-8 h-px bg-gold-500/30 self-center" />
+                  <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">Leading with excellence</span>
                 </div>
               </div>
             </motion.div>
@@ -368,10 +381,6 @@ const PublicWebsite = () => {
             <p className="text-gray-600 text-[10px] uppercase tracking-[0.5em] font-bold">
               &copy; {new Date().getFullYear()} GLAMMYS EXECUTIVE SUITES.
             </p>
-            <div className="flex gap-8">
-              <span className="text-[10px] text-zinc-700 uppercase tracking-widest cursor-pointer hover:text-gold-500 transition-colors">Privacy Policy</span>
-              <span className="text-[10px] text-zinc-700 uppercase tracking-widest cursor-pointer hover:text-gold-500 transition-colors">Terms of Stay</span>
-            </div>
           </div>
         </div>
       </footer>
@@ -397,7 +406,6 @@ const AdminLogin = () => {
     setIsLoggingIn(true);
     setError('');
 
-    // Explicitly using hardcoded check for safety
     setTimeout(() => {
       const success = StorageService.login(username, password);
       if (success) {
@@ -406,7 +414,7 @@ const AdminLogin = () => {
         setError('Authorization Failed: Identity or Access Key is incorrect.');
         setIsLoggingIn(false);
       }
-    }, 800);
+    }, 600);
   };
 
   return (
@@ -465,33 +473,20 @@ const AdminLogin = () => {
             </div>
           </div>
 
-          <AnimatePresence>
-            {error && (
-              <motion.div 
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="bg-red-500/10 border border-red-500/20 py-4 px-6 rounded-2xl"
-              >
-                <p className="text-red-500 text-[10px] uppercase font-black tracking-widest text-center">
-                  {error}
-                </p>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          {error && (
+            <div className="bg-red-500/10 border border-red-500/20 py-4 px-6 rounded-2xl">
+              <p className="text-red-500 text-[10px] uppercase font-black tracking-widest text-center">{error}</p>
+            </div>
+          )}
 
           <Button fullWidth type="submit" disabled={isLoggingIn} className="h-16 rounded-2xl font-black text-lg">
-            {isLoggingIn ? (
-              <span className="flex items-center gap-3">
-                <span className="w-5 h-5 border-2 border-richBlack/20 border-t-richBlack rounded-full animate-spin" />
-                Authorizing...
-              </span>
-            ) : 'Enter Portal'}
+            {isLoggingIn ? 'Authorizing...' : 'Enter Portal'}
           </Button>
         </form>
 
         <div className="mt-12 text-center">
-          <Link to="/" className="text-zinc-600 hover:text-white text-[10px] uppercase tracking-[0.4em] font-black transition-all flex items-center justify-center gap-3 group">
-            <ChevronLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Return to Sanctuary
+          <Link to="/" className="text-zinc-600 hover:text-white text-[10px] uppercase tracking-[0.4em] font-black transition-all flex items-center justify-center gap-3">
+            <ChevronLeft size={16} /> Return to Sanctuary
           </Link>
         </div>
       </motion.div>
@@ -502,117 +497,375 @@ const AdminLogin = () => {
 const AdminDashboard = () => (
   <AdminLayout>
     <div className="max-w-5xl">
-      <motion.div
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <h1 className="text-6xl font-serif font-bold text-white mb-4 uppercase tracking-tighter">Master View</h1>
-        <p className="text-gray-500 text-xl mb-16 italic font-light tracking-wide">Orchestrating the golden standard of Glammys Executive Suites.</p>
-      </motion.div>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+      <h1 className="text-6xl font-serif font-bold text-white mb-4 uppercase tracking-tighter">Master View</h1>
+      <p className="text-gray-500 text-xl mb-16 italic font-light tracking-wide">Orchestrating the golden standard of Glammys Executive Suites.</p>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {[
-          { to: "/admin/rooms", icon: <BedDouble size={48} />, label: "Inventory", desc: "Suites & Availability" },
-          { to: "/admin/team", icon: <Users size={48} />, label: "Leadership", desc: "Executive Profiles" },
-          { to: "/admin/faq", icon: <MessageCircle size={48} />, label: "Concierge", desc: "Guest FAQ Database" }
-        ].map((item, idx) => (
-          <motion.div
-            key={item.to}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 + idx * 0.1 }}
-          >
-            <Link to={item.to} className="bg-charcoal/50 p-12 rounded-[2rem] border border-zinc-800 hover:border-gold-500 transition-all text-center group block">
-              <div className="text-gold-500 mx-auto mb-8 group-hover:scale-110 transition-transform bg-gold-500/5 w-24 h-24 rounded-3xl flex items-center justify-center border border-gold-500/10">
-                {item.icon}
-              </div>
-              <h3 className="text-3xl font-bold text-white mb-2 uppercase tracking-tight">{item.label}</h3>
-              <p className="text-gray-600 text-sm uppercase tracking-widest font-bold">{item.desc}</p>
-            </Link>
-          </motion.div>
+          { to: "/admin/rooms", icon: <BedDouble size={36} />, label: "Suites", desc: "Pricing & Images" },
+          { to: "/admin/team", icon: <Users size={36} />, label: "Leadership", desc: "Team Profiles" },
+          { to: "/admin/faq", icon: <MessageCircle size={36} />, label: "Concierge", desc: "Guest FAQs" },
+          { to: "/admin/explore", icon: <Map size={36} />, label: "Explore", desc: "Sandton Attractions" },
+        ].map((item) => (
+          <Link key={item.to} to={item.to} className="bg-charcoal/50 p-8 rounded-[2rem] border border-zinc-800 hover:border-gold-500 transition-all text-center group block">
+            <div className="text-gold-500 mx-auto mb-6 group-hover:scale-110 transition-transform bg-gold-500/5 w-20 h-20 rounded-2xl flex items-center justify-center border border-gold-500/10">
+              {item.icon}
+            </div>
+            <h3 className="text-2xl font-bold text-white mb-1 uppercase tracking-tight">{item.label}</h3>
+            <p className="text-gray-600 text-xs uppercase tracking-widest font-bold">{item.desc}</p>
+          </Link>
         ))}
       </div>
     </div>
   </AdminLayout>
 );
 
+// --- ADMIN ROOMS MANAGEMENT ---
 const AdminRooms = () => {
   const [rooms, setRooms] = useState<Room[]>(StorageService.getRooms());
-  const save = () => { StorageService.setRooms(rooms); alert('Global inventory updated.'); };
+
+  const save = () => {
+    StorageService.setRooms(rooms);
+    alert('Suites inventory updated and live on main website.');
+  };
+
+  const handleImageUpload = async (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const base64 = await StorageService.fileToBase64(e.target.files[0]);
+      const updated = [...rooms];
+      updated[index].images.push(base64);
+      setRooms(updated);
+    }
+  };
+
+  const removeImage = (roomIndex: number, imgIndex: number) => {
+    const updated = [...rooms];
+    updated[roomIndex].images.splice(imgIndex, 1);
+    setRooms(updated);
+  };
+
+  const addNewRoom = () => {
+    const newRoom: Room = {
+      id: 'suite-' + Date.now(),
+      name: 'New Executive Suite',
+      description: 'Enter room description here...',
+      price: 1000,
+      images: ['https://images.unsplash.com/photo-1618773928121-c32242e63f39?q=80&w=800&auto=format&fit=crop'],
+      amenities: ['Wi-Fi', 'En-suite'],
+      maxGuests: 2
+    };
+    setRooms([...rooms, newRoom]);
+  };
+
+  const deleteRoom = (index: number) => {
+    if (confirm('Are you sure you want to delete this suite?')) {
+      const updated = rooms.filter((_, idx) => idx !== index);
+      setRooms(updated);
+    }
+  };
 
   return (
     <AdminLayout>
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-16">
         <div>
           <h1 className="text-5xl font-serif font-bold text-white mb-2 uppercase tracking-tighter">Suites Inventory</h1>
-          <p className="text-gray-500 font-light italic">Configure nightly rates and presentation details.</p>
+          <p className="text-gray-500 font-light italic">Configure nightly rates, descriptions, and uploaded images.</p>
         </div>
-        <Button onClick={save} className="h-14 px-10"><Save size={20} /> Deploy Changes</Button>
+        <div className="flex gap-4">
+          <Button variant="outline" onClick={addNewRoom} className="h-14"><Plus size={18} /> Add New Suite</Button>
+          <Button onClick={save} className="h-14 px-8"><Save size={18} /> Deploy Changes</Button>
+        </div>
       </div>
+
       <div className="space-y-12 pb-20">
         {rooms.map((room, idx) => (
-          <motion.div 
-            key={room.id}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: idx * 0.1 }}
-            className="bg-charcoal/40 backdrop-blur-md border border-zinc-800 rounded-[2.5rem] p-10 hover:border-gold-500/20 transition-all shadow-xl"
-          >
-            <div className="flex flex-col xl:flex-row gap-12">
-              <div className="w-full xl:w-1/3">
-                 <div className="relative aspect-video rounded-3xl overflow-hidden border border-zinc-800">
-                    <img src={room.images[0]} className="w-full h-full object-cover grayscale-[0.5] opacity-60" />
-                    <div className="absolute inset-0 flex items-center justify-center">
-                       <span className="bg-black/80 backdrop-blur-md text-gold-500 px-6 py-2 rounded-full text-xs font-black uppercase tracking-widest">Master Preview</span>
-                    </div>
-                 </div>
-              </div>
-              <div className="flex-1 space-y-8">
-                <div className="space-y-3">
-                  <label className="text-[10px] uppercase tracking-[0.3em] text-gold-500/50 font-black">Suite Title</label>
-                  <input 
-                    className="text-3xl font-serif font-bold bg-transparent text-white w-full outline-none border-b border-zinc-800 focus:border-gold-500 pb-3 transition-colors uppercase tracking-tight" 
-                    value={room.name} 
-                    onChange={(e) => { const nr = [...rooms]; nr[idx].name = e.target.value; setRooms(nr); }}
-                  />
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-                  <div className="space-y-3">
-                    <label className="text-[10px] uppercase tracking-[0.3em] text-gold-500/50 font-black">Nightly Rate (ZAR)</label>
-                    <div className="relative">
-                      <span className="absolute left-4 top-1/2 -translate-y-1/2 text-gold-500 font-bold">R</span>
-                      <input 
-                        type="number"
-                        className="w-full bg-black/40 border border-zinc-800 pl-10 pr-5 py-4 rounded-2xl text-white outline-none focus:border-gold-500 transition-colors font-bold"
-                        value={room.price}
-                        onChange={(e) => { const nr = [...rooms]; nr[idx].price = parseInt(e.target.value) || 0; setRooms(nr); }}
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-3">
-                    <label className="text-[10px] uppercase tracking-[0.3em] text-gold-500/50 font-black">Max Occupancy</label>
-                    <input 
-                      type="number"
-                      className="w-full bg-black/40 border border-zinc-800 p-4 rounded-2xl text-white outline-none focus:border-gold-500 transition-colors"
-                      value={room.maxGuests}
-                      onChange={(e) => { const nr = [...rooms]; nr[idx].maxGuests = parseInt(e.target.value) || 0; setRooms(nr); }}
-                    />
-                  </div>
-                </div>
+          <div key={room.id} className="bg-charcoal/40 backdrop-blur-md border border-zinc-800 rounded-[2.5rem] p-10 space-y-8">
+            <div className="flex justify-between items-center border-b border-zinc-800 pb-6">
+              <input 
+                className="text-3xl font-serif font-bold bg-transparent text-white outline-none focus:border-gold-500 border-b border-transparent uppercase tracking-tight w-full" 
+                value={room.name} 
+                onChange={(e) => { const nr = [...rooms]; nr[idx].name = e.target.value; setRooms(nr); }}
+              />
+              <button onClick={() => deleteRoom(idx)} className="text-red-400 hover:text-red-300 p-2 ml-4">
+                <Trash2 size={24} />
+              </button>
+            </div>
 
-                <div className="space-y-3">
-                  <label className="text-[10px] uppercase tracking-[0.3em] text-gold-500/50 font-black">Marketing Description</label>
-                  <textarea 
-                    className="w-full bg-black/40 border border-zinc-800 p-5 rounded-2xl text-white h-40 outline-none focus:border-gold-500 transition-colors text-sm leading-relaxed font-light"
-                    value={room.description}
-                    onChange={(e) => { const nr = [...rooms]; nr[idx].description = e.target.value; setRooms(nr); }}
-                  />
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label className="text-[10px] uppercase tracking-[0.3em] text-gold-500/50 font-black block mb-2">Nightly Rate (ZAR)</label>
+                <input 
+                  type="number"
+                  className="w-full bg-black/40 border border-zinc-800 p-4 rounded-2xl text-white outline-none focus:border-gold-500 font-bold"
+                  value={room.price}
+                  onChange={(e) => { const nr = [...rooms]; nr[idx].price = parseInt(e.target.value) || 0; setRooms(nr); }}
+                />
+              </div>
+
+              <div>
+                <label className="text-[10px] uppercase tracking-[0.3em] text-gold-500/50 font-black block mb-2">Max Occupancy</label>
+                <input 
+                  type="number"
+                  className="w-full bg-black/40 border border-zinc-800 p-4 rounded-2xl text-white outline-none focus:border-gold-500"
+                  value={room.maxGuests}
+                  onChange={(e) => { const nr = [...rooms]; nr[idx].maxGuests = parseInt(e.target.value) || 0; setRooms(nr); }}
+                />
+              </div>
+
+              <div>
+                <label className="text-[10px] uppercase tracking-[0.3em] text-gold-500/50 font-black block mb-2">Amenities (Comma Separated)</label>
+                <input 
+                  type="text"
+                  className="w-full bg-black/40 border border-zinc-800 p-4 rounded-2xl text-white outline-none focus:border-gold-500"
+                  value={room.amenities.join(', ')}
+                  onChange={(e) => { const nr = [...rooms]; nr[idx].amenities = e.target.value.split(',').map(s => s.trim()); setRooms(nr); }}
+                />
               </div>
             </div>
-          </motion.div>
+
+            <div>
+              <label className="text-[10px] uppercase tracking-[0.3em] text-gold-500/50 font-black block mb-2">Description</label>
+              <textarea 
+                className="w-full bg-black/40 border border-zinc-800 p-5 rounded-2xl text-white h-28 outline-none focus:border-gold-500 font-light"
+                value={room.description}
+                onChange={(e) => { const nr = [...rooms]; nr[idx].description = e.target.value; setRooms(nr); }}
+              />
+            </div>
+
+            {/* Image Gallery & Upload */}
+            <div>
+              <label className="text-[10px] uppercase tracking-[0.3em] text-gold-500/50 font-black block mb-4">Suite Photos ({room.images.length})</label>
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                {room.images.map((img, imgIdx) => (
+                  <div key={imgIdx} className="relative aspect-video rounded-xl overflow-hidden border border-zinc-800 group">
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                    <button 
+                      onClick={() => removeImage(idx, imgIdx)}
+                      className="absolute top-2 right-2 bg-red-600/80 hover:bg-red-600 text-white p-1.5 rounded-full transition-opacity opacity-0 group-hover:opacity-100"
+                    >
+                      <Trash2 size={14} />
+                    </button>
+                  </div>
+                ))}
+
+                <label className="border-2 border-dashed border-zinc-800 hover:border-gold-500/50 rounded-xl flex flex-col items-center justify-center cursor-pointer p-4 text-center transition-colors aspect-video bg-black/20">
+                  <Upload size={20} className="text-gold-500 mb-1" />
+                  <span className="text-[10px] uppercase font-bold text-gray-400">Upload Photo</span>
+                  <input type="file" accept="image/*" onChange={(e) => handleImageUpload(idx, e)} className="hidden" />
+                </label>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </AdminLayout>
+  );
+};
+
+// --- ADMIN TEAM MANAGEMENT ---
+const AdminTeam = () => {
+  const [team, setTeam] = useState<TeamMember[]>(StorageService.getTeam());
+
+  const save = () => {
+    StorageService.setTeam(team);
+    alert('Executive Team details updated.');
+  };
+
+  const handleImageUpload = async (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const base64 = await StorageService.fileToBase64(e.target.files[0]);
+      const updated = [...team];
+      updated[index].image = base64;
+      setTeam(updated);
+    }
+  };
+
+  const addMember = () => {
+    setTeam([...team, { id: 'team-' + Date.now(), name: 'New Executive', role: 'Role Title', image: '/images/team/pamela.jpg' }]);
+  };
+
+  const deleteMember = (index: number) => {
+    if (confirm('Remove team member?')) {
+      setTeam(team.filter((_, i) => i !== index));
+    }
+  };
+
+  return (
+    <AdminLayout>
+      <div className="flex justify-between items-center mb-16">
+        <div>
+          <h1 className="text-5xl font-serif font-bold text-white mb-2 uppercase">Executive Leadership</h1>
+          <p className="text-gray-500 italic">Manage leadership profiles and photos.</p>
+        </div>
+        <div className="flex gap-4">
+          <Button variant="outline" onClick={addMember} className="h-14"><Plus size={18} /> Add Executive</Button>
+          <Button onClick={save} className="h-14 px-8"><Save size={18} /> Save Changes</Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {team.map((member, idx) => (
+          <div key={member.id} className="bg-charcoal/40 border border-zinc-800 rounded-3xl p-8 space-y-6">
+            <div className="flex justify-between items-start gap-4">
+              <div className="relative w-32 h-40 rounded-2xl overflow-hidden border border-zinc-800 flex-shrink-0 group">
+                <img src={member.image} alt="" className="w-full h-full object-cover" />
+                <label className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center cursor-pointer transition-opacity">
+                  <Upload className="text-gold-500 mb-1" size={20} />
+                  <span className="text-[9px] uppercase font-bold text-white">Change</span>
+                  <input type="file" accept="image/*" onChange={(e) => handleImageUpload(idx, e)} className="hidden" />
+                </label>
+              </div>
+
+              <div className="flex-1 space-y-4">
+                <div>
+                  <label className="text-[10px] uppercase text-gold-500/50 font-bold block mb-1">Full Name</label>
+                  <input 
+                    className="w-full bg-black/40 border border-zinc-800 p-3 rounded-xl text-white outline-none focus:border-gold-500" 
+                    value={member.name}
+                    onChange={(e) => { const nt = [...team]; nt[idx].name = e.target.value; setTeam(nt); }}
+                  />
+                </div>
+                <div>
+                  <label className="text-[10px] uppercase text-gold-500/50 font-bold block mb-1">Role Title</label>
+                  <input 
+                    className="w-full bg-black/40 border border-zinc-800 p-3 rounded-xl text-white outline-none focus:border-gold-500" 
+                    value={member.role}
+                    onChange={(e) => { const nt = [...team]; nt[idx].role = e.target.value; setTeam(nt); }}
+                  />
+                </div>
+              </div>
+              <button onClick={() => deleteMember(idx)} className="text-red-400 p-2"><Trash2 size={20} /></button>
+            </div>
+          </div>
+        ))}
+      </div>
+    </AdminLayout>
+  );
+};
+
+// --- ADMIN FAQ MANAGEMENT ---
+const AdminFaq = () => {
+  const [faqs, setFaqs] = useState<FaqItem[]>(StorageService.getFaqs());
+
+  const save = () => {
+    StorageService.setFaqs(faqs);
+    alert('Concierge FAQ database updated.');
+  };
+
+  const addFaq = () => {
+    setFaqs([...faqs, { question: 'New Question?', answer: 'Detailed response here.' }]);
+  };
+
+  const deleteFaq = (index: number) => {
+    setFaqs(faqs.filter((_, i) => i !== index));
+  };
+
+  return (
+    <AdminLayout>
+      <div className="flex justify-between items-center mb-16">
+        <div>
+          <h1 className="text-5xl font-serif font-bold text-white mb-2 uppercase">Concierge FAQ</h1>
+          <p className="text-gray-500 italic">Manage guest questions & detailed answers.</p>
+        </div>
+        <div className="flex gap-4">
+          <Button variant="outline" onClick={addFaq} className="h-14"><Plus size={18} /> Add FAQ</Button>
+          <Button onClick={save} className="h-14 px-8"><Save size={18} /> Save Changes</Button>
+        </div>
+      </div>
+
+      <div className="space-y-6 max-w-4xl">
+        {faqs.map((faq, idx) => (
+          <div key={idx} className="bg-charcoal/40 border border-zinc-800 rounded-2xl p-6 space-y-4">
+            <div className="flex justify-between items-center gap-4">
+              <input 
+                className="w-full bg-black/40 border border-zinc-800 p-4 rounded-xl text-gold-400 font-bold outline-none focus:border-gold-500" 
+                value={faq.question}
+                onChange={(e) => { const nf = [...faqs]; nf[idx].question = e.target.value; setFaqs(nf); }}
+              />
+              <button onClick={() => deleteFaq(idx)} className="text-red-400 p-2"><Trash2 size={20} /></button>
+            </div>
+            <textarea 
+              className="w-full bg-black/40 border border-zinc-800 p-4 rounded-xl text-gray-300 outline-none focus:border-gold-500 h-24 font-light"
+              value={faq.answer}
+              onChange={(e) => { const nf = [...faqs]; nf[idx].answer = e.target.value; setFaqs(nf); }}
+            />
+          </div>
+        ))}
+      </div>
+    </AdminLayout>
+  );
+};
+
+// --- ADMIN EXPLORE MANAGEMENT ---
+const AdminExplore = () => {
+  const [explore, setExplore] = useState<Activity[]>(StorageService.getExplore());
+
+  const save = () => {
+    StorageService.setExplore(explore);
+    alert('Sandton Attractions updated.');
+  };
+
+  const handleImageUpload = async (index: number, e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const base64 = await StorageService.fileToBase64(e.target.files[0]);
+      const updated = [...explore];
+      updated[index].image = base64;
+      setExplore(updated);
+    }
+  };
+
+  const addAttraction = () => {
+    setExplore([...explore, { title: 'New Attraction', description: 'Description', image: '/images/activities/mandela-square.jpg', distance: '5 min drive', link: 'https://' }]);
+  };
+
+  return (
+    <AdminLayout>
+      <div className="flex justify-between items-center mb-16">
+        <div>
+          <h1 className="text-5xl font-serif font-bold text-white mb-2 uppercase">Explore Sandton</h1>
+          <p className="text-gray-500 italic">Manage local attractions & links.</p>
+        </div>
+        <div className="flex gap-4">
+          <Button variant="outline" onClick={addAttraction} className="h-14"><Plus size={18} /> Add Item</Button>
+          <Button onClick={save} className="h-14 px-8"><Save size={18} /> Save Changes</Button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {explore.map((item, idx) => (
+          <div key={idx} className="bg-charcoal/40 border border-zinc-800 rounded-3xl p-8 space-y-4">
+            <div className="relative h-48 rounded-2xl overflow-hidden border border-zinc-800 group mb-4">
+              <img src={item.image} alt="" className="w-full h-full object-cover" />
+              <label className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 flex flex-col items-center justify-center cursor-pointer transition-opacity">
+                <Upload className="text-gold-500 mb-1" size={24} />
+                <span className="text-[10px] uppercase font-bold text-white">Upload Cover Photo</span>
+                <input type="file" accept="image/*" onChange={(e) => handleImageUpload(idx, e)} className="hidden" />
+              </label>
+            </div>
+
+            <input 
+              className="w-full bg-black/40 border border-zinc-800 p-3 rounded-xl text-white font-bold outline-none focus:border-gold-500" 
+              value={item.title} 
+              onChange={(e) => { const ne = [...explore]; ne[idx].title = e.target.value; setExplore(ne); }}
+            />
+            <textarea 
+              className="w-full bg-black/40 border border-zinc-800 p-3 rounded-xl text-gray-300 outline-none focus:border-gold-500 h-20 text-sm" 
+              value={item.description} 
+              onChange={(e) => { const ne = [...explore]; ne[idx].description = e.target.value; setExplore(ne); }}
+            />
+            <div className="grid grid-cols-2 gap-4">
+              <input 
+                className="bg-black/40 border border-zinc-800 p-3 rounded-xl text-xs text-gray-300 outline-none" 
+                value={item.distance} 
+                onChange={(e) => { const ne = [...explore]; ne[idx].distance = e.target.value; setExplore(ne); }}
+              />
+              <input 
+                className="bg-black/40 border border-zinc-800 p-3 rounded-xl text-xs text-gray-300 outline-none" 
+                value={item.link} 
+                onChange={(e) => { const ne = [...explore]; ne[idx].link = e.target.value; setExplore(ne); }}
+              />
+            </div>
+          </div>
         ))}
       </div>
     </AdminLayout>
@@ -630,9 +883,9 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
         <Route path="/admin/rooms" element={<PrivateRoute><AdminRooms /></PrivateRoute>} />
-        <Route path="/admin/team" element={<PrivateRoute><AdminLayout><div>Executive Team Management Interface (Coming Soon)</div></AdminLayout></PrivateRoute>} />
-        <Route path="/admin/faq" element={<PrivateRoute><AdminLayout><div>Concierge FAQ Management Interface (Coming Soon)</div></AdminLayout></PrivateRoute>} />
-        <Route path="/admin/explore" element={<PrivateRoute><AdminLayout><div>Attractions Management Interface (Coming Soon)</div></AdminLayout></PrivateRoute>} />
+        <Route path="/admin/team" element={<PrivateRoute><AdminTeam /></PrivateRoute>} />
+        <Route path="/admin/faq" element={<PrivateRoute><AdminFaq /></PrivateRoute>} />
+        <Route path="/admin/explore" element={<PrivateRoute><AdminExplore /></PrivateRoute>} />
         
         {/* CATCH ALL ROUTE */}
         <Route path="*" element={<PublicWebsite />} />
