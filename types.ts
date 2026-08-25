@@ -37,6 +37,17 @@ export interface BookingDetails {
   guestName: string;
 }
 
+export interface Promotion {
+  id: string;
+  title: string;
+  tagline: string; // e.g. "December Disease Special", "Weekday Madness"
+  description: string;
+  discountPercentage: number;
+  code?: string;
+  isActive: boolean;
+  highlightText?: string; // e.g. "Up to 20% OFF"
+}
+
 export enum ChatSender {
   USER = 'user',
   BOT = 'bot'
