@@ -5,11 +5,11 @@ import { Navbar } from './components/Navbar';
 import { Button } from './components/Button';
 import { BookingModal } from './components/BookingModal';
 import { Chatbot } from './components/Chatbot';
-import { Room, TeamMember, FaqItem, Activity } from './types';
+import { Room, TeamMember, FaqItem, Activity, Promotion } from './types';
 import { 
   MapPin, Mail, Phone, ChevronDown, Plus, Minus, ChevronLeft, ChevronRight, 
   Trash2, Save, BedDouble, Users, Settings, LogIn, User,
-  MessageCircle, Eye, EyeOff, Image as ImageIcon, Upload, Map
+  MessageCircle, Eye, EyeOff, Image as ImageIcon, Upload, Map, Tag, Sparkles, Check
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { StorageService } from './services/storageService';
@@ -99,9 +99,12 @@ const PublicWebsite = () => {
   const [team, setTeam] = useState<TeamMember[]>(StorageService.getTeam());
   const [faqs, setFaqs] = useState<FaqItem[]>(StorageService.getFaqs());
   const [explore, setExplore] = useState<Activity[]>(StorageService.getExplore());
+  const [promotions, setPromotions] = useState<Promotion[]>(StorageService.getPromotions());
   const [selectedRoom, setSelectedRoom] = useState<Room | null>(null);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+
+  const activePromos = promotions.filter(p => p.isActive);
 
   // Sync state whenever Admin makes updates
   useEffect(() => {
@@ -110,6 +113,7 @@ const PublicWebsite = () => {
       setTeam(StorageService.getTeam());
       setFaqs(StorageService.getFaqs());
       setExplore(StorageService.getExplore());
+      setPromotions(StorageService.getPromotions());
     };
 
     window.addEventListener('glammys-data-updated', handleDataUpdate);
@@ -118,6 +122,21 @@ const PublicWebsite = () => {
 
   return (
     <div className="min-h-screen bg-richBlack text-gray-200 selection:bg-gold-500 selection:text-black font-sans">
+      
+      {/* Top Promotional Announcement Ticker */}
+      {activePromos.length > 0 && (
+        <div className="bg-gradient-to-r from-gold-600 via-gold-400 to-gold-600 text-richBlack py-2.5 px-4 text-center font-bold text-xs md:text-sm uppercase tracking-wider relative z-50 flex items-center justify-center gap-2 shadow-lg">
+          <Sparkles size={16} />
+          <span>🔥 <strong>SPECIAL OFFER:</strong> {activePromos[0].title} — {activePromos[0].highlightText || `${activePromos[0].discountPercentage}% OFF`}</span>
+          <button 
+            onClick={() => document.getElementById('promos')?.scrollIntoView({ behavior: 'smooth' })} 
+            className="underline ml-2 text-black hover:text-white transition-colors cursor-pointer font-black"
+          >
+            Claim Offer
+          </button>
+        </div>
+      )}
+
       <Navbar />
 
       {/* Hero Section */}
@@ -164,9 +183,15 @@ const PublicWebsite = () => {
             <Button className="h-14 px-10" onClick={() => document.getElementById('suites')?.scrollIntoView({ behavior: 'smooth' })}>
               Discover Suites
             </Button>
-            <Button variant="outline" className="h-14 px-10" onClick={() => document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth' })}>
-              Explore Sandton
-            </Button>
+            {activePromos.length > 0 ? (
+              <Button variant="outline" className="h-14 px-10" onClick={() => document.getElementById('promos')?.scrollIntoView({ behavior: 'smooth' })}>
+                View Specials ({activePromos.length})
+              </Button>
+            ) : (
+              <Button variant="outline" className="h-14 px-10" onClick={() => document.getElementById('explore')?.scrollIntoView({ behavior: 'smooth' })}>
+                Explore Sandton
+              </Button>
+            )}
           </div>
         </motion.div>
 
@@ -174,6 +199,55 @@ const PublicWebsite = () => {
           <ChevronDown size={32} />
         </div>
       </header>
+
+      {/* PROMOTIONS SECTION */}
+      {activePromos.length > 0 && (
+        <section id="promos" className="py-24 px-6 bg-gradient-to-b from-richBlack via-zinc-950 to-richBlack border-y border-gold-500/20">
+          <div className="container mx-auto">
+            <div className="text-center mb-16">
+              <span className="text-gold-500 uppercase tracking-[0.4em] text-xs font-black">Exclusive Deals</span>
+              <h2 className="font-serif text-4xl md:text-6xl font-bold text-white mt-2 uppercase tracking-tight">Current Specials & Packages</h2>
+              <div className="w-24 h-1 bg-gold-500 mx-auto mt-4 rounded-full" />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {activePromos.map((promo, idx) => (
+                <motion.div
+                  key={promo.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="bg-charcoal/80 border border-gold-500/30 hover:border-gold-500 rounded-3xl p-8 flex flex-col justify-between shadow-2xl relative overflow-hidden group"
+                >
+                  <div className="absolute -right-12 -top-12 bg-gold-500/10 group-hover:bg-gold-500/20 w-32 h-32 rounded-full transition-all" />
+                  
+                  <div>
+                    <div className="flex justify-between items-start mb-6">
+                      <span className="bg-gold-500/20 text-gold-400 border border-gold-500/30 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest">
+                        {promo.highlightText || `${promo.discountPercentage}% OFF`}
+                      </span>
+                      {promo.code && (
+                        <span className="text-xs font-mono text-gray-400 bg-black/60 border border-zinc-800 px-2.5 py-1 rounded-md">
+                          CODE: {promo.code}
+                        </span>
+                      )}
+                    </div>
+
+                    <h3 className="font-serif text-2xl font-bold text-white mb-2 uppercase">{promo.title}</h3>
+                    <p className="text-gold-400 text-xs font-bold uppercase tracking-wider mb-4">{promo.tagline}</p>
+                    <p className="text-gray-400 text-sm leading-relaxed font-light mb-8">{promo.description}</p>
+                  </div>
+
+                  <Button fullWidth onClick={() => document.getElementById('suites')?.scrollIntoView({ behavior: 'smooth' })}>
+                    Book With Special
+                  </Button>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Intro Section */}
       <section className="py-32 px-6 bg-zinc-950 border-y border-gold-500/10">
@@ -501,9 +575,10 @@ const AdminDashboard = () => (
       <h1 className="text-6xl font-serif font-bold text-white mb-4 uppercase tracking-tighter">Master View</h1>
       <p className="text-gray-500 text-xl mb-16 italic font-light tracking-wide">Orchestrating the golden standard of Glammys Executive Suites.</p>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {[
           { to: "/admin/rooms", icon: <BedDouble size={36} />, label: "Suites", desc: "Pricing & Images" },
+          { to: "/admin/promotions", icon: <Tag size={36} />, label: "Promotions", desc: "Discounts & Specials" },
           { to: "/admin/team", icon: <Users size={36} />, label: "Leadership", desc: "Team Profiles" },
           { to: "/admin/faq", icon: <MessageCircle size={36} />, label: "Concierge", desc: "Guest FAQs" },
           { to: "/admin/explore", icon: <Map size={36} />, label: "Explore", desc: "Sandton Attractions" },
@@ -655,6 +730,106 @@ const AdminRooms = () => {
                   <input type="file" accept="image/*" onChange={(e) => handleImageUpload(idx, e)} className="hidden" />
                 </label>
               </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </AdminLayout>
+  );
+};
+
+// --- ADMIN PROMOTIONS MANAGEMENT ---
+const AdminPromotions = () => {
+  const [promotions, setPromotions] = useState<Promotion[]>(StorageService.getPromotions());
+
+  const save = () => {
+    StorageService.setPromotions(promotions);
+    alert('Promotions updated and published to the website!');
+  };
+
+  const toggleActive = (idx: number) => {
+    const updated = [...promotions];
+    updated[idx].isActive = !updated[idx].isActive;
+    setPromotions(updated);
+  };
+
+  const addPromotion = () => {
+    const newPromo: Promotion = {
+      id: 'promo-' + Date.now(),
+      title: 'New Limited Special',
+      tagline: 'Special Offer Tagline',
+      description: 'Describe the offer conditions here...',
+      discountPercentage: 15,
+      code: 'PROMO15',
+      isActive: true,
+      highlightText: '15% OFF'
+    };
+    setPromotions([...promotions, newPromo]);
+  };
+
+  const deletePromo = (idx: number) => {
+    if (confirm('Delete this promotion?')) {
+      setPromotions(promotions.filter((_, i) => i !== idx));
+    }
+  };
+
+  return (
+    <AdminLayout>
+      <div className="flex justify-between items-center mb-16">
+        <div>
+          <h1 className="text-5xl font-serif font-bold text-white mb-2 uppercase">Promotions & Discounts</h1>
+          <p className="text-gray-500 italic">Manage live website deals, December specials, and weekday packages.</p>
+        </div>
+        <div className="flex gap-4">
+          <Button variant="outline" onClick={addPromotion} className="h-14"><Plus size={18} /> Add New Special</Button>
+          <Button onClick={save} className="h-14 px-8"><Save size={18} /> Deploy Changes</Button>
+        </div>
+      </div>
+
+      <div className="space-y-8 max-w-5xl">
+        {promotions.map((promo, idx) => (
+          <div key={promo.id} className={`bg-charcoal/40 border rounded-3xl p-8 space-y-6 transition-all ${promo.isActive ? 'border-gold-500/50' : 'border-zinc-800 opacity-60'}`}>
+            <div className="flex justify-between items-center border-b border-zinc-800 pb-6">
+              <div className="flex items-center gap-4 flex-1">
+                <input 
+                  className="text-2xl font-serif font-bold bg-transparent text-white outline-none border-b border-transparent focus:border-gold-500 w-full uppercase" 
+                  value={promo.title}
+                  onChange={(e) => { const np = [...promotions]; np[idx].title = e.target.value; setPromotions(np); }}
+                />
+              </div>
+
+              <div className="flex items-center gap-4">
+                <button
+                  type="button"
+                  onClick={() => toggleActive(idx)}
+                  className={`px-4 py-2 rounded-full text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all ${
+                    promo.isActive ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-zinc-800 text-gray-500 border border-zinc-700'
+                  }`}
+                >
+                  {promo.isActive ? <><Check size={14} /> Active</> : 'Disabled'}
+                </button>
+                <button onClick={() => deletePromo(idx)} className="text-red-400 p-2"><Trash2 size={20} /></button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div>
+                <label className="text-[10px] uppercase text-gold-500/50 font-bold block mb-1">Tagline</label>
+                <input className="w-full bg-black/40 border border-zinc-800 p-3 rounded-xl text-white outline-none focus:border-gold-500" value={promo.tagline} onChange={(e) => { const np = [...promotions]; np[idx].tagline = e.target.value; setPromotions(np); }} />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase text-gold-500/50 font-bold block mb-1">Badge Text (e.g. "Up to 20% OFF")</label>
+                <input className="w-full bg-black/40 border border-zinc-800 p-3 rounded-xl text-white outline-none focus:border-gold-500" value={promo.highlightText || ''} onChange={(e) => { const np = [...promotions]; np[idx].highlightText = e.target.value; setPromotions(np); }} />
+              </div>
+              <div>
+                <label className="text-[10px] uppercase text-gold-500/50 font-bold block mb-1">Promo Code</label>
+                <input className="w-full bg-black/40 border border-zinc-800 p-3 rounded-xl text-white outline-none focus:border-gold-500 font-mono" value={promo.code || ''} onChange={(e) => { const np = [...promotions]; np[idx].code = e.target.value; setPromotions(np); }} />
+              </div>
+            </div>
+
+            <div>
+              <label className="text-[10px] uppercase text-gold-500/50 font-bold block mb-1">Offer Description</label>
+              <textarea className="w-full bg-black/40 border border-zinc-800 p-4 rounded-xl text-gray-300 outline-none focus:border-gold-500 h-24 font-light text-sm" value={promo.description} onChange={(e) => { const np = [...promotions]; np[idx].description = e.target.value; setPromotions(np); }} />
             </div>
           </div>
         ))}
@@ -884,6 +1059,7 @@ function App() {
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<PrivateRoute><AdminDashboard /></PrivateRoute>} />
         <Route path="/admin/rooms" element={<PrivateRoute><AdminRooms /></PrivateRoute>} />
+        <Route path="/admin/promotions" element={<PrivateRoute><AdminPromotions /></PrivateRoute>} />
         <Route path="/admin/team" element={<PrivateRoute><AdminTeam /></PrivateRoute>} />
         <Route path="/admin/faq" element={<PrivateRoute><AdminFaq /></PrivateRoute>} />
         <Route path="/admin/explore" element={<PrivateRoute><AdminExplore /></PrivateRoute>} />
