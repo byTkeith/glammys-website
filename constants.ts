@@ -1,4 +1,5 @@
 import { Room, TeamMember, FaqItem, Activity } from './types';
+import { Promotion } from './types';
 
 // ==========================================
 // COMPANY BRANDING & DETAILS
@@ -13,7 +14,43 @@ export const COMPANY_ADDRESS = "Hydro Park & Westpoint, Sandton, Johannesburg";
 export const HERO_IMAGE_URL = "/images/hero.jpg";
 
 // LOGO SETUP:
-export const COMPANY_LOGO_URL = "/images/logo.jpg"; 
+export const COMPANY_LOGO_URL = "/images/logo.jpg";
+
+// ==========================================
+// PROMOS
+// ==========================================
+export const PROMOTIONS: Promotion[] = [
+  {
+    id: 'december-disease',
+    title: 'December Disease Special',
+    tagline: 'Festive Season Extended Stay',
+    description: 'The longer you stay, the more you save! Enjoy up to 20% off when booking 3 or more consecutive nights during the holiday season.',
+    discountPercentage: 20,
+    code: 'DEC20',
+    isActive: true,
+    highlightText: 'SAVE UP TO 20%'
+  },
+  {
+    id: 'early-bird',
+    title: 'Early Bird & Regulars Perk',
+    tagline: 'Plan Ahead & Save',
+    description: 'Book 30+ days in advance or return as a valued regular guest to unlock 15% to 20% off your entire suite reservation.',
+    discountPercentage: 15,
+    code: 'EARLYBIRD',
+    isActive: true,
+    highlightText: '15% - 20% OFF'
+  },
+  {
+    id: 'weekday-madness',
+    title: 'Weekday Madness',
+    tagline: 'Mid-Week Executive Escape',
+    description: 'Extend your stay into Sunday - Thursday nights and receive reduced nightly rates across all Hydro Park and Westpoint suites.',
+    discountPercentage: 15,
+    code: 'WEEKDAY15',
+    isActive: true,
+    highlightText: 'MID-WEEK SPECIAL'
+  }
+];
 
 // ==========================================
 // ROOMS CONFIGURATION
