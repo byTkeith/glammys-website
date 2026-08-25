@@ -367,8 +367,8 @@ const PublicWebsite = () => {
               <h4 className="text-[10px] font-black text-white uppercase tracking-[0.3em] mb-8 opacity-50">Reservations</h4>
               <div className="space-y-6 text-gray-400 text-sm">
                 <p className="flex items-center gap-4 hover:text-gold-400 transition-colors cursor-pointer"><Mail size={16} className="text-gold-500" /> {COMPANY_EMAIL}</p>
-                <p className="flex items-center gap-4 hover:text-gold-400 transition-colors cursor-pointer"><Phone size={16} className="text-gold-500" /> +{COMPANY_PHONE}</p>
-                <p className="flex items-center gap-4 hover:text-gold-400 transition-colors cursor-pointer"><Phone size={16} className="text-gold-500" /> +{COMPANY_PHONE_2}</p>
+                <p className="flex items-center gap-4 hover:text-gold-400 transition-colors cursor-pointer"><Phone size={16} className="text-gold-500" /> +{COMPANY_PHONE} WhatsApp</p>
+                <p className="flex items-center gap-4 hover:text-gold-400 transition-colors cursor-pointer"><Phone size={16} className="text-gold-500" /> +{COMPANY_PHONE_2} Call</p>
                 <p className="flex items-start gap-4 hover:text-gold-400 transition-colors cursor-pointer"><MapPin size={16} className="text-gold-500 mt-1" /> {COMPANY_ADDRESS}</p>
               </div>
             </div>
