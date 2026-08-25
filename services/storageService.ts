@@ -1,5 +1,5 @@
-import { Room, TeamMember, FaqItem, Activity } from '../types';
-import { ROOMS, TEAM, FAQS, THINGS_TO_DO } from '../constants';
+import { Room, TeamMember, FaqItem, Activity, Promotion } from '../types';
+import { ROOMS, TEAM, FAQS, THINGS_TO_DO, PROMOTIONS } from '../constants';
 
 const STORAGE_KEYS = {
   ROOMS: 'glammys_rooms',
@@ -17,6 +17,16 @@ const notifyUpdate = () => {
 };
 
 export const StorageService = {
+  // --- PROMOTIONS ---
+  getPromotions: (): Promotion[] => {
+    const data = localStorage.getItem(STORAGE_KEYS.PROMOTIONS);
+    return data ? JSON.parse(data) : PROMOTIONS;
+  },
+  setPromotions: (data: Promotion[]) => {
+    localStorage.setItem(STORAGE_KEYS.PROMOTIONS, JSON.stringify(data));
+    notifyUpdate();
+  },
+  
   // --- ROOMS ---
   getRooms: (): Room[] => {
     const data = localStorage.getItem(STORAGE_KEYS.ROOMS);
