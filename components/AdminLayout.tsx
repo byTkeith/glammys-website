@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { LayoutDashboard, BedDouble, Users, MessageCircle, Map, LogOut, ChevronLeft } from 'lucide-react';
+import { LayoutDashboard, BedDouble, Users, MessageCircle, Map, LogOut, ChevronLeft, Tag } from 'lucide-react';
 import { StorageService } from '../services/storageService';
 
 export const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -16,6 +16,7 @@ export const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children 
   const navItems = [
     { name: 'Dashboard', icon: <LayoutDashboard size={20} />, path: '/admin' },
     { name: 'Rooms', icon: <BedDouble size={20} />, path: '/admin/rooms' },
+    { name: 'Promotions', icon: <Tag size={20} />, path: '/admin/promotions' },
     { name: 'Team', icon: <Users size={20} />, path: '/admin/team' },
     { name: 'FAQ', icon: <MessageCircle size={20} />, path: '/admin/faq' },
     { name: 'Explore', icon: <Map size={20} />, path: '/admin/explore' },
